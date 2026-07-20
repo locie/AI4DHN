@@ -86,14 +86,14 @@ They are:
 Day of the year with format MM-DD, e.g. 06-18 for June 18th. 
 
 Truncating the data may cause inconsistent behaviour with the `[...]_SH_filter`
-arguments of `ai4dhn-control` command.s
+arguments of `ai4dhn-control` command.
 """
                         )
     parser.add_argument("--end_day", 
                         type=provide_date_str,
                         default=None,
                         help=\
-"""Concatenated annual data will be truncated to end on this day (excluded).
+"""Concatenated annual data will be truncated to end on this day (included).
 Day of the year with format MM-DD, e.g. 06-18 for June 18th.
 
 Truncating the data may cause inconsistent behaviour with the `[...]_SH_filter`
