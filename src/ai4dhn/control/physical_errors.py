@@ -1,7 +1,11 @@
+
+# Whether the minimization of T_prim_out, the return temperature at the primary side of themain heat exchanger, is achieved.
+# By default True
+minimize_T_prim_out = True
+
 def compute_physical_errors(Q_SH, Q_SH_ref, 
                     T_DHW_out, T_DHW_out_ref, 
-                    T_prim_in,T_prim_out, 
-                    minimize_T_prim_out = True
+                    T_prim_in,T_prim_out
                      ):
     """Compute a physical error comparing reference data and physical model ouputs.
 
@@ -22,9 +26,6 @@ def compute_physical_errors(Q_SH, Q_SH_ref,
     T_prim_out : float
         Outlet (return) temperature at the primary side of the main heat exchanger of the substation.
         Must be provided even for minimize_T_prim_out = False.
-    minimize_T_prim_out : bool, optional
-        Whether the minimization of T_prim_out, the return temperature at the primary side of themain heat exchanger, is achieved.
-        By default True
 
     Returns
     -------

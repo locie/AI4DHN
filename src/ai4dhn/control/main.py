@@ -80,7 +80,7 @@ DHW comes with a thermocline storage."""
         control_choice.formatter_class = Formatter_
         
 
-        if True: # algo: PPO
+        if True: # algo: PPO 3 objectives (SH, DHW, return temperature)
             control_PPO = control_choice.add_parser("PPO",
                                 description="Proximal Policy Optimization control, based on small dense neural networks." \
                                 )
@@ -103,7 +103,7 @@ If not provided, CPU is used.""",
             use_mode_choice.formatter_class = Formatter_
             
             
-            if True:
+            if True:  # training mode
                 mode_train = use_mode_choice.add_parser("train",
                                                         description=\
 """Train a new or existing PPO model, and regularly evaluate it on a validation dataset. 
@@ -199,7 +199,7 @@ Please have a look at the following paper regarding the PPO algorithm:
                 
     
                 
-            if True:
+            if True: # testing mode
                 mode_test = use_mode_choice.add_parser("test",
                                     description=\
 """Test the PPO model in an inference mode. 
@@ -243,6 +243,193 @@ They are rendered graphically using Plotly and saved in a CSV file compatible wi
                             help="Path to the directory of simulation outputs and PPO model.\n"
                             )        
                 
+
+
+
+
+
+
+
+
+
+
+        if True: # algo: PPO 2 objectives (SH, DHW)
+            control_PPO_2_objectives = control_choice.add_parser("PPO_2_objectives",
+                                description="Proximal Policy Optimization control, based on small dense neural networks.\n" \
+                                "This version is the 2 objectives one: space heating, domestic hot water. "
+                                 "For an additionnal minimization of primary return temperature, please see \"PPO\"." \
+                                )
+            control_PPO_2_objectives.formatter_class = Formatter_
+            
+
+            control_PPO_2_objectives.add_argument("--gpu_memory", 
+                                    help="""
+Experimental. GPU memory (MB) to be used. 
+Only one GPU is used if several exist.
+If not provided, CPU is used.""",                    
+                                    default=None)
+            
+            
+            use_mode_choice = control_PPO_2_objectives.add_subparsers(title="Use mode",
+                                                        dest="use_mode_choice",
+                                                        description="Train the model or apply it.",
+                                                        required=True
+                                                        )
+            use_mode_choice.formatter_class = Formatter_
+            
+            
+            if True:  # training mode
+                mode_train = use_mode_choice.add_parser("train",
+                                                        description=\
+"""Train a new or existing PPO model, and regularly evaluate it on a validation dataset. 
+Detailed results include inputs and outputs of the physical model, and performance indicators. 
+They are saved in a CSV file compatible with  Simulink "Simulation Data Inspector".""")
+                mode_train.formatter_class = Formatter_
+                
+                mode_train.add_argument("--train_scenario",
+                                        required=True,
+                                        type=provide_dir_path,
+                                        help="""
+Path to the directory defining input data and parameters in training phase.
+Last component of the path is used with `results_dir` to store results 
+and save corresponding PPO model.
+If a model already exists with this name it will be reused.
+Else it will be created.
+""" + help_suffix_scenario)
+                
+                
+                
+                mode_train.add_argument("--val_scenario",
+                                        required=True,
+                                        type=provide_dir_path,
+                                        help="Path to the directory defining input data and parameters in validation phase.\n"
+                                        + help_suffix_scenario)
+            
+                
+                mode_train.add_argument("--config", 
+                                        type=provide_file_path,
+                                        required=True,
+                                        help=\
+"""Path to the file containing PPO hyper-parameters (JSON).
+Here is an example of expected config file:
+
+    "gae_lambda": 1.0,              positive float
+    "gamma": 0.99,                  positive float
+    "batch_size": 10080,            positive int, unit: number of time steps
+    "entropy_loss_coef": 0.001,     positive float
+    "learning_rate": 0.001,         positive float
+    "max_train_iter": 20,           positive int
+    "ratio_clip": 0.2,              positive float
+    "trajectory_length": 3600,      positive int, unit: seconds
+    "validation_steps": 2           positive int, unit: epochs, 
+                                    frequency to run validation
+    "value_loss_coef": 1,           positive float
+
+Please have a look at the following paper regarding the PPO algorithm:
+
+    J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov, 
+    “Proximal Policy Optimization Algorithms,” Aug. 28, 2017, 
+    arXiv: arXiv:1707.06347. doi: 10.48550/arXiv.1707.06347.
+
+
+""")
+                
+                mode_train.add_argument("--results_dir",
+                            required=True,
+                            type=provide_dir_path,
+                            help="Path to the directory of simulation outputs and PPO model.\n"
+                            )    
+                
+                mode_train.add_argument("--n_epochs", 
+                                        help="Number of iterations through the entire training dataset.",
+                                        type=int,
+                                        required=False, 
+                                        default=30)
+                
+                mode_train.add_argument("--train_SH_filter_mode", 
+                                        help="Apply to the training dataset\n"+help_SH_filter_mode,
+                                        required=False,
+                                        choices=("summer",  "multi-periods", "contiguous"),
+                                        default="multi-periods")
+                
+                mode_train.add_argument("--train_SH_filter_threshold", 
+                                        help="Apply to the training dataset\n"+help_SH_filter_threshold,
+                                        required=False,
+                                        type=float,
+                                        default=-1,
+                                        )   
+                
+                mode_train.add_argument("--val_SH_filter_mode", 
+                                        help="Apply to the validation dataset\nPlease see `train_SH_filter_mode` help section.\n",
+                                        required=False,
+                                        choices=("summer",  "multi-periods", "contiguous"),
+                                        default="multi-periods")
+                
+                mode_train.add_argument("--val_SH_filter_threshold", 
+                                        help="Apply to the validation dataset\nPlease see `train_SH_filter_threshold` help section.\n",
+                                        required=False,
+                                        type=float,
+                                        default=-1,
+                                        )    
+                
+    
+                
+            if True: # testing mode
+                mode_test = use_mode_choice.add_parser("test",
+                                    description=\
+"""Test the PPO model in an inference mode. 
+Detailed results include inputs and outputs of the physical model, and performance indicators. 
+They are rendered graphically using Plotly and saved in a CSV file compatible with  Simulink "Simulation Data Inspector"."""
+)
+                mode_test.formatter_class = Formatter_
+                
+                mode_test.add_argument("--train_scenario",
+                                        required=True,
+                                        type=provide_dir_path,
+                                    help="Name of an existing model.")
+
+                mode_test.add_argument("--test_scenario",
+                                        required=True,
+                                        type=provide_dir_path,
+                                        help="Path to the directory defining input data and parameters in testing phase.\n "
+                                        + help_suffix_scenario \
+                                        )
+                
+                mode_test.add_argument("--test_SH_filter_mode", 
+                                        help="Apply to the test dataset\n"+ help_SH_filter_mode,
+                                        required=False,
+                                        choices=("summer",  "multi-periods", "contiguous"),
+                                        default="multi-periods")
+                
+                mode_test.add_argument("--test_SH_filter_threshold", 
+                                        help="Apply to the test dataset\n"+ help_SH_filter_threshold,
+                                        required=False,
+                                        type=float,
+                                        default=-1,
+                                        )   
+                mode_test.add_argument("--config", 
+                                        type=provide_file_path,
+                                        required=True,
+                                        help="Path to the file containing PPO hyper-parameters (JSON).\n")
+                
+                mode_test.add_argument("--results_dir",
+                            required=True,
+                            type=provide_dir_path,
+                            help="Path to the directory of simulation outputs and PPO model.\n"
+                            )        
+                
+
+
+
+
+
+
+
+
+
+
+
+
 
         if True: # algo: RBC1
             control_RBC1 = control_choice.add_parser("RBC1",
@@ -317,6 +504,8 @@ They are saved in a CSV file compatible with  Simulink "Simulation Data Inspecto
                                         default=-1,
                                         )   
 
+    else:
+        pass # no other architecture defined
 
 
 
@@ -325,7 +514,7 @@ They are saved in a CSV file compatible with  Simulink "Simulation Data Inspecto
 
     args = parser.parse_args()
     if args.archi_choice == "parallel":
-        if args.control_choice == "PPO":
+        if args.control_choice in ("PPO", "PPO_2_objectives"):
             # source: https://www.tensorflow.org/guide/gpu#limiting_gpu_memory_growth
             if args.gpu_memory is None:
                 from os import environ
@@ -390,7 +579,11 @@ They are saved in a CSV file compatible with  Simulink "Simulation Data Inspecto
         
             ppo.set_config(configs)
             ppo.model_dir = args.results_dir / Path(f"architectures/{args.archi_choice}/{args.control_choice}/ppo_model/{args.train_scenario.name}")
-
+            from ai4dhn.control import physical_errors
+            if args.control_choice == "PPO":
+                physical_errors.minimize_T_prim_out = True
+            else:
+                physical_errors.minimize_T_prim_out = False                
             
             if args.use_mode_choice == "train":
                 try:
