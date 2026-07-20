@@ -45,8 +45,6 @@ readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 keywords = ["district heating", "substation", "control", "reinforcement learning"]
-classifiers = [
-]
 
 [project.urls]
 Repository = "https://github.com/locie/AI4DHN"
@@ -58,15 +56,15 @@ ai4dhn-merge-profiles = "ai4dhn.scenarios.merge:call"
 ai4dhn-interface-gen = "ai4dhn.interface_gen:call"
 ai4dhn-control = "ai4dhn.control:call"
 
-classifiers = [
-  "Development Status :: 4 - Beta",
-  "Intended Audience :: Science/Research",
-  "Intended Audience :: Developers",
-  "Topic :: Software Development :: Build Tools",
-  "Operating System :: POSIX :: Linux",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: C",
-  "Topic :: Scientific/Engineering :: Artificial Intelligence",
-  "Topic :: Scientific/Engineering :: Physics",
-  "License :: OSI Approved :: Apache Software License"
-]
+# classifiers = [
+#   "Development Status :: 4 - Beta",
+#   "Intended Audience :: Science/Research",
+#   "Intended Audience :: Developers",
+#   "Topic :: Software Development :: Build Tools",
+#   "Operating System :: POSIX :: Linux",
+#   "Programming Language :: Python :: 3.12",
+#   "Programming Language :: C",
+#   "Topic :: Scientific/Engineering :: Artificial Intelligence",
+#   "Topic :: Scientific/Engineering :: Physics",
+#   "License :: OSI Approved :: Apache Software License"
+# ]
