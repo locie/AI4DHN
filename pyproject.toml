@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+artifacts = [
+  "*.so",
+]
+
+[project]
+name = "ai4dhn"
+version = "2026.6"
+requires-python = ">=3.12"
+dependencies = [
+"keras>=3.10,<4",
+"matplotlib>=3.10,<4",
+"opendhw>=0.2.5,<1",
+"pandas>=3.0.0,<4",
+"plotly>=6.0,<7",
+"pvlib>=0.13,<1",
+"scikit-learn>=1.6.1,<2",
+"tdmat@git+https://github.com/BNerot/tdmat.git#egg=main",
+"tensorflow[and-cuda]<3; sys_platform == 'linux'",
+"tensorflow<3; sys_platform == 'win32'",
+"tensorflow_probability>=0.25,<1",
+"tf-keras>=2.19,<3",
+"wurlitzer>=3.0,<4",
+]
+
+authors = [
+  {name = "Boris Nérot", email = "boris.nerot@gmail.com"},
+  {name = "Mickaël Bettinelli", email = "mickael.bettinelli@univ-smb.fr"},
+]
+maintainers = [
+  {name = "Boris Nérot", email = "boris.nerot@gmail.com"},
+  {name = "Mickaël Bettinelli", email = "mickael.bettinelli@univ-smb.fr"},
+  {name = "Faiza Loukil", email = "faiza.loukil@univ-smb.fr"},
+]
+
+description = "Framework for control of district heating substations using rule-based or reinforcement learning methods."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+keywords = ["district heating", "substation", "control", "reinforcement learning"]
+classifiers = [
+]
+
+[project.urls]
+Repository = "https://github.com/locie/AI4DHN"
+
+[project.scripts]
+ai4dhn-define-SH-profile = "ai4dhn.scenarios.define_SH_profile:call"
+ai4dhn-define-DHW-profile = "ai4dhn.scenarios.define_DHW_profile:call"
+ai4dhn-merge-profiles = "ai4dhn.scenarios.merge:call"
+ai4dhn-interface-gen = "ai4dhn.interface_gen:call"
+ai4dhn-control = "ai4dhn.control:call"
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: C",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Physics",
+  "License :: OSI Approved :: Apache Software License"
+]

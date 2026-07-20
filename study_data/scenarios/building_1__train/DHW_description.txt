@@ -1,0 +1,18 @@
+scenario: ../data_dir/scenarios/building_1__train
+
+time_step: 60
+
+year: 2026
+
+building_type: AB
+
+occupancy: 13
+
+country_code: DK
+
+UTC_offset: 1
+
+mean_drawoff_vol_per_day: 40
+
+categories: 4
+

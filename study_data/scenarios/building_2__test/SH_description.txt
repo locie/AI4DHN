@@ -1,0 +1,63 @@
+mode: generate
+
+building_name: DK.N.AB.09.Gen.ReEx.001.003
+
+time_step: 60
+
+latitude: 55.68
+
+longitude: 12.51
+
+place_name: 
+
+weather_mode: TMY
+
+scenario: ../data_dir/scenarios/building_2__test
+
+start_year: 2014
+
+end_year: 2023
+
+Space heating demand:
+- SH:  65 kWh/(m2.year)
+- SH:  43 MWh/year
+
+
+Weather data properties:
+{'inputs': {'descriptions': {'location': {'description': 'Selected location',
+                                          'variables': {'elevation': {'description': 'Elevation', 'units': 'm'},
+                                                        'latitude': {'description': 'Latitude', 'units': 'decimal degree'},
+                                                        'longitude': {'description': 'Longitude', 'units': 'decimal degree'}}},
+                             'meteo_data': {'description': 'Sources of meteorological data',
+                                            'variables': {'horizon_db': {'description': 'Source of horizon data'},
+                                                          'meteo_db': {'description': 'Database used for meteorological variables other than solar radiation'},
+                                                          'radiation_db': {'description': 'Solar radiation database'},
+                                                          'use_horizon': {'description': 'Include horizon shadows'},
+                                                          'year_max': {'description': 'Last year of the calculations'},
+                                                          'year_min': {'description': 'First year of the calculations'}}}},
+            'location': {'elevation': 14.0, 'irradiance_time_offset': 0.1866, 'latitude': 55.68, 'longitude': 12.51},
+            'meteo_data': {'horizon_db': 'DEM-calculated', 'meteo_db': 'ERA5', 'radiation_db': 'PVGIS-SARAH3', 'use_horizon': True, 'year_max': 2023, 'year_min': 2014}},
+ 'months_selected': [{'month': 1, 'year': 2016},
+                     {'month': 2, 'year': 2023},
+                     {'month': 3, 'year': 2017},
+                     {'month': 4, 'year': 2022},
+                     {'month': 5, 'year': 2022},
+                     {'month': 6, 'year': 2020},
+                     {'month': 7, 'year': 2022},
+                     {'month': 8, 'year': 2019},
+                     {'month': 9, 'year': 2022},
+                     {'month': 10, 'year': 2022},
+                     {'month': 11, 'year': 2023},
+                     {'month': 12, 'year': 2014}],
+ 'outputs': {'months_selected': {'description': 'months selected for the TMY', 'timestamp': 'monthly', 'type': 'time series'},
+             'tmy_hourly': {'timestamp': 'hourly',
+                            'type': 'time series',
+                            'variables': {'G(h)': {'description': 'Global irradiance on the horizontal plane', 'units': 'W/m2'},
+                                          'Gb(n)': {'description': 'Beam/direct irradiance on a plane always normal to sun rays', 'units': 'W/m2'},
+                                          'Gd(h)': {'description': 'Diffuse irradiance on the horizontal plane', 'units': 'W/m2'},
+                                          'IR(h)': {'description': 'Surface infrared (thermal) irradiance on a horizontal plane', 'units': 'W/m2'},
+                                          'RH': {'description': 'relative humidity', 'units': '%'},
+                                          'SP': {'description': 'Surface (air) pressure', 'units': 'Pa'},
+                                          'T2m': {'description': '2-m air temperature', 'units': 'degree Celsius'},
+                                          'WD10m': {'description': '10-m wind direction (0 = N, 90 = E)', 'units': 'degree'},
+                                          'WS10m': {'description': '10-m total wind speed', 'units': 'm/s'}}}}}

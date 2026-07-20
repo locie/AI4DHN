@@ -1,0 +1,12 @@
+{
+"m_SH_peak": 0.526,
+"m_prim":    0.692,
+"m_DHW_sec": 0.122,
+"m_DHW_recirc": 0.079,
+"m_DHW_prim": 0.249,
+"T_DHW_sec_out": 60,
+"T_prim_in": 80,
+"T_DHW_out_ref": 50,
+"T_cold": 16,
+"T_SH_HIGH": 75
+}

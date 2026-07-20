@@ -1,0 +1,12 @@
+{
+    "max_train_iter": 20,
+    "gamma": 0.998,
+    "gae_lambda": 1.0,
+    "ratio_clip": 0.2,
+    "value_loss_coef": 1,
+    "entropy_loss_coef": 0.001,
+    "learning_rate": 0.001,
+    "batch_size": 10080,
+    "trajectory_length": 3600,
+    "validation_steps": 8
+}
